@@ -82,11 +82,15 @@ int main(int argc, char** argv) {
         for (int i = 1; i < size; i++)
         {
             MPI_Send(&N, 1, MPI_INT, i, TAG_N, MPI_COMM_WORLD);
+            // N mod size с учетом, что size-1-й кусок может быть короче
             }
 
         for (int i = 1; i < size; i++)
         {
             MPI_Send(a, N, MPI_INT, i, TAG_A, MPI_COMM_WORLD);
+            // надо переслать N mod size элементов массива с соответствующего первого элемента first_element = i*size
+            // учесть надо, что size-1-й кусок может быть короче N mod size
+            // MPI_Send(&a[first_element], ....
         }
 
 
